@@ -1,162 +1,711 @@
-<!doctype html>
-<html lang="zh-Hant" data-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="數位多媒體學生的視覺設計、互動網頁與影像作品集。"
-    />
-    <title>阮友雄｜雲端服務</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">跳到主要內容</a>
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阮友雄 | 資訊管理學系 - 個人網站</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Microsoft JhengHei', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="回到首頁">
-        <span class="brand-mark">YA</span>
-        <span class="brand-copy">
-          <strong>NGUYEN HUU HUNG</strong>
-          <small>Digital Media Student</small>
-        </span>
-      </a>
+    <style>
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span>選單</span>
-      </button>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+        }
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
 
-      <nav id="site-nav" class="site-nav" aria-label="主要導覽">
-        <a href="#about">關於我</a>
-        <a href="#works">作品展示</a>
-        <a href="#contact">聯絡我</a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
-          <span class="theme-icon" aria-hidden="true">◐</span>
-          <span>切換主題</span>
-        </button>
-      </nav>
+        /* Gradient Animation */
+        @keyframes pulseGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .animated-gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulseGradient 6s ease infinite;
+        }
+
+        /* Hover Elevation Effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .dark .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #93c5fd;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+    <!-- Fixed Glassmorphism Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo / Name -->
+            <a href="#home" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
+                    雄
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-base sm:text-lg tracking-tight leading-none group-hover:text-blue-500 transition-colors">阮友雄</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">資管系 · MIS Major</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+                <a href="#home" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors">首頁</a>
+                <a href="#about" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors">關於我</a>
+                <a href="#skills" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors">技能與目標</a>
+                <a href="#contact" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors">聯繫方式</a>
+            </nav>
+
+            <!-- Actions (Theme Toggle & Mobile Menu Button) -->
+            <div class="flex items-center gap-2">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" aria-label="切換主題" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-amber-300 hover:ring-2 hover:ring-blue-400 transition-all">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-solid fa-sun hidden dark:inline text-lg"></i>
+                </button>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobileMenuBtn" aria-label="選單" class="md:hidden p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                    <i class="fa-solid fa-bars text-lg" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg px-4 pt-3 pb-6 space-y-2 shadow-xl">
+            <a href="#home" class="mobile-nav-link block px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 transition-colors">
+                <i class="fa-solid fa-house w-6 text-blue-500"></i> 首頁
+            </a>
+            <a href="#about" class="mobile-nav-link block px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 transition-colors">
+                <i class="fa-solid fa-user w-6 text-indigo-500"></i> 關於我
+            </a>
+            <a href="#skills" class="mobile-nav-link block px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 transition-colors">
+                <i class="fa-solid fa-bullseye w-6 text-purple-500"></i> 技能與學習目標
+            </a>
+            <a href="#contact" class="mobile-nav-link block px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 transition-colors">
+                <i class="fa-solid fa-paper-plane w-6 text-emerald-500"></i> 聯繫方式
+            </a>
+        </div>
     </header>
 
-    <main id="main-content">
-      <section id="top" class="hero section-shell" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">DIGITAL MEDIA · PORTFOLIO 2026</p>
-          <h1 id="hero-title">把想像，<span>做成可以互動的作品。</span></h1>
-          <p class="hero-lead">
-            我是阮友雄，正在學習雲端服務。
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#works">瀏覽作品 <span aria-hidden="true">↗</span></a>
-            <a class="button button-quiet" href="#about">認識我</a>
-          </div>
-          <div class="hero-meta" aria-label="個人專長摘要">
-            <div><strong>03</strong><span>作品類別</span></div>
-            <div><strong>08</strong><span>完成專案</span></div>
-            <div><strong>01</strong><span>創作方向</span></div>
-          </div>
-        </div>
+    <main class="pt-24 pb-16 flex-grow space-y-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- SECTION 1: HERO / HOME SECTION -->
+        <section id="home" class="min-h-[80vh] flex flex-col justify-center items-center text-center relative py-12">
+            <!-- Background Glow Effects -->
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-72 sm:w-96 h-72 sm:h-96 bg-blue-500/20 dark:bg-blue-600/15 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+            <div class="absolute top-1/3 left-1/4 w-48 h-48 bg-indigo-500/20 dark:bg-indigo-600/15 rounded-full blur-2xl -z-10 pointer-events-none"></div>
 
-        <div class="hero-visual" aria-label="作品集視覺預覽">
-          <div class="visual-grid"></div>
-          <div class="visual-note note-top">Selected work<br /><strong>01 / 08</strong></div>
-          <div class="visual-card">
-            <div class="visual-card-top"><span>01</span><span>motion study</span></div>
-            <div class="visual-orbit"><span></span><span></span><span></span></div>
-            <p>光的<br /><em>練習</em></p>
-            <div class="visual-card-bottom"><span>VISUAL / 2026</span><span>↗</span></div>
-          </div>
-          <div class="visual-note note-bottom">Scroll to explore<br /><span>↓</span></div>
-        </div>
-      </section>
-
-      <section id="about" class="about section-shell" aria-labelledby="about-title">
-        <div class="section-heading">
-          <p class="eyebrow">01 / ABOUT</p>
-          <h2 id="about-title">先觀察，再創作。</h2>
-        </div>
-        <div class="about-grid">
-          <p class="about-statement">
-            我喜歡把複雜的訊息整理成清楚的畫面，也喜歡研究使用者如何在一個介面裡移動、停留與發現。
-          </p>
-          <div class="about-details">
-            <p>目前就讀數位多媒體相關科系，創作練習集中在品牌視覺、互動網頁與動態影像。</p>
-            <div class="skill-list" aria-label="技能列表">
-              <span>Visual Design</span><span>Web Design</span><span>Motion</span><span>Creative Coding</span>
+            <!-- College Student Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-blue-600 dark:text-blue-400 text-sm font-semibold mb-6 shadow-sm border border-blue-200/50 dark:border-blue-500/20">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                🎓 大學生 · 資訊管理學系 (MIS)
             </div>
-          </div>
-        </div>
-      </section>
 
-      <section id="works" class="works section-shell" aria-labelledby="works-title">
-        <div class="section-heading works-heading">
-          <div>
-            <p class="eyebrow">02 / SELECTED WORKS</p>
-            <h2 id="works-title">正在形成的作品集。</h2>
-          </div>
-          <p class="section-note">每一個作品，都是一次重新整理問題的方法。</p>
-        </div>
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4">
+                你好，我是 <span class="animated-gradient-text">阮友雄</span> 👋
+            </h1>
 
-        <div class="filter-bar" role="group" aria-label="作品分類">
-          <button class="filter-button is-active" type="button" data-filter="all">全部 <span>08</span></button>
-          <button class="filter-button" type="button" data-filter="visual">視覺設計 <span>03</span></button>
-          <button class="filter-button" type="button" data-filter="web">網頁互動 <span>03</span></button>
-          <button class="filter-button" type="button" data-filter="motion">動態影像 <span>02</span></button>
-        </div>
+            <!-- Highlight One-Liner Card -->
+            <div class="mt-4 max-w-2xl w-full">
+                <div class="glass-card card-hover p-6 sm:p-8 rounded-3xl relative overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl">
+                    <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-purple-500/10 rounded-full blur-xl"></div>
+                    <div class="text-xs uppercase tracking-widest text-blue-600 dark:text-blue-400 font-bold mb-2">
+                        <i class="fa-solid fa-sparkles mr-1"></i> 一句話介紹自己
+                    </div>
+                    <p class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 leading-relaxed">
+                        「你的全能 AI 隨身助手 Gemini」
+                    </p>
+                </div>
+            </div>
 
-        <div class="project-grid">
-          <article class="project-card project-featured" data-category="web">
-            <div class="project-art art-lumen"><span>LUMEN</span><i></i></div>
-            <div class="project-info"><p class="project-type">WEB INTERACTION · 2026</p><h3>Lumen 光影展覽網站</h3><p>以捲動敘事與互動卡片介紹校內光影展。</p><a href="#contact" class="text-link">查看專案 <span>↗</span></a></div>
-          </article>
-          <article class="project-card" data-category="visual">
-            <div class="project-art art-tide"><span>潮汐<br />TIDE</span><i></i></div>
-            <div class="project-info"><p class="project-type">VISUAL IDENTITY · 2026</p><h3>潮汐品牌識別</h3><p>從海岸線提取節奏，轉換成一組品牌視覺。</p><a href="#contact" class="text-link">查看專案 <span>↗</span></a></div>
-          </article>
-          <article class="project-card" data-category="motion">
-            <div class="project-art art-rhythm"><span>RHYTHM<br />OF AIR</span><i></i></div>
-            <div class="project-info"><p class="project-type">MOTION STUDY · 2025</p><h3>空氣的節奏</h3><p>用形狀、速度與聲音做一段動態練習。</p><a href="#contact" class="text-link">查看專案 <span>↗</span></a></div>
-          </article>
-          <article class="project-card" data-category="visual">
-            <div class="project-art art-letter"><span>A<br />Z</span><i></i></div>
-            <div class="project-info"><p class="project-type">EDITORIAL DESIGN · 2025</p><h3>字體採集誌</h3><p>記錄城市裡容易被忽略的字體風景。</p><a href="#contact" class="text-link">查看專案 <span>↗</span></a></div>
-          </article>
-          <article class="project-card" data-category="web">
-            <div class="project-art art-orbit"><span>ORBIT<br />LAB</span><i></i></div>
-            <div class="project-info"><p class="project-type">CREATIVE CODING · 2025</p><h3>Orbit 互動實驗室</h3><p>以滑鼠移動探索軌道、速度與色彩。</p><a href="#contact" class="text-link">查看專案 <span>↗</span></a></div>
-          </article>
-          <article class="project-card" data-category="motion">
-            <div class="project-art art-frame"><span>FRAME<br />BY FRAME</span><i></i></div>
-            <div class="project-info"><p class="project-type">SHORT FILM · 2025</p><h3>一格一格的日常</h3><p>將日常片段剪輯成一封給自己的影像信。</p><a href="#contact" class="text-link">查看專案 <span>↗</span></a></div>
-          </article>
-        </div>
-        <p id="empty-state" class="empty-state" hidden>這個分類目前還在累積中，換一個分類看看。</p>
-      </section>
+            <!-- CTA Buttons -->
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#about" class="px-7 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-compass"></i> 探索更多
+                </a>
+                <a href="#contact" class="px-7 py-3.5 rounded-2xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold transition-all hover:scale-105 active:scale-95 flex items-center gap-2 border border-slate-300/60 dark:border-slate-700/60">
+                    <i class="fa-solid fa-envelope"></i> 快速聯繫
+                </a>
+            </div>
 
-      <section id="contact" class="contact section-shell" aria-labelledby="contact-title">
-        <div class="contact-intro">
-          <p class="eyebrow">03 / CONTACT</p>
-          <h2 id="contact-title">一起做一個<br /><span>值得被看見的作品。</span></h2>
-          <p>如果你想聊聊設計、網站或下一個合作提案，歡迎留下訊息。</p>
-          <a class="contact-email" href="mailto:hello@yuan-portfolio.example">hello@yuan-portfolio.example <span>↗</span></a>
-        </div>
-        <form id="contact-form" class="contact-form">
-          <label for="name">你的名字</label>
-          <input id="name" name="name" type="text" placeholder="例如：王小明" required />
-          <label for="email">電子郵件</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required />
-          <label for="message">想聊聊什麼？</label>
-          <textarea id="message" name="message" rows="4" placeholder="簡單描述你的想法……" required></textarea>
-          <button class="button button-primary form-submit" type="submit">送出訊息 <span aria-hidden="true">↗</span></button>
-          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
-        </form>
-      </section>
+            <!-- Scroll Down Indicator -->
+            <div class="mt-16 animate-bounce">
+                <a href="#about" class="text-slate-400 hover:text-blue-500 transition-colors" aria-label="向下滾動">
+                    <i class="fa-solid fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION 2: ABOUT ME SECTION -->
+        <section id="about" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">關於我</h2>
+                <div class="w-16 h-1 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: Photo / Profile Avatar Card -->
+                <div class="lg:col-span-5 flex flex-col items-center">
+                    <div class="glass-card p-6 rounded-3xl w-full max-w-sm card-hover text-center relative border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                        <div class="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto mb-6 group">
+                            <!-- Profile Image -->
+                            <img id="profileImage" src="images\profile.jpg" 
+                                 alt="阮友雄的照片" 
+                                 class="w-full h-full object-cover rounded-2xl shadow-md border-4 border-white dark:border-slate-800 transition-transform group-hover:scale-105 duration-300"
+                                 onerror="this.src='https://placehold.co/400x400/2563eb/ffffff?text=%E2%9C%A8+%E9%98%AE%E5%8F%8B%E9%9B%84'">
+                            
+                            <!-- Overlay Upload / Change Button -->
+                            <button onclick="openPhotoModal()" class="absolute bottom-2 right-2 p-3 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 transition-all hover:scale-110 active:scale-95" title="更換相片">
+                                <i class="fa-solid fa-camera"></i>
+                            </button>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">阮友雄</h3>
+                        <p class="text-blue-600 dark:text-blue-400 font-medium text-sm mt-1">資管系 大學生</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-center gap-3">
+                            <span class="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold">💻 科技熱愛者</span>
+                            <span class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">🚀 AI 探索者</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Detailed Intro & Interests Cards -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Bio Glass Card -->
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl card-hover border border-slate-200/80 dark:border-slate-800 shadow-md">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
+                            <i class="fa-solid fa-id-card text-blue-500"></i> 個人背景介紹
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg">
+                            嗨！我是<strong class="text-slate-900 dark:text-white">阮友雄</strong>，目前就讀於<strong class="text-blue-600 dark:text-blue-400">資訊管理學系（資管系）</strong>。
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg mt-3">
+                            我熱衷於結合資訊技術與商業思維，善於將龐雜的知識體系化，並致力於打造兼具效率與美感的數位體驗。就像一個聰明敏捷的 AI 助手，我總是保持好奇、敏捷思考，努力成為團隊中最值得信賴的解決方案提供者。
+                        </p>
+                    </div>
+
+                    <!-- Interest Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Interest Card 1 -->
+                        <div class="glass-card p-6 rounded-2xl card-hover border border-slate-200/80 dark:border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl font-bold mb-3">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h4 class="font-bold text-lg text-slate-900 dark:text-white">吸收新知</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                隨時對新技術與創新想法保持熱情，主動學習並融入日常生活與開發實踐中。
+                            </p>
+                        </div>
+
+                        <!-- Interest Card 2 -->
+                        <div class="glass-card p-6 rounded-2xl card-hover border border-slate-200/80 dark:border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl font-bold mb-3">
+                                <i class="fa-solid fa-filter"></i>
+                            </div>
+                            <h4 class="font-bold text-lg text-slate-900 dark:text-white">化繁為簡</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                擅長梳理複雜邏輯與繁雜資訊，將難懂的問題轉化為清晰易懂的溝通與成果。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SKILLS & GOALS SECTION -->
+        <section id="skills" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">技能與學習目標</h2>
+                <div class="w-16 h-1 bg-purple-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Skills Card Section -->
+                <div class="glass-card p-6 sm:p-8 rounded-3xl card-hover border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-code text-purple-500"></i> 專業技能
+                            </h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 font-semibold">資管核心能力</span>
+                        </div>
+
+                        <!-- Skill Progress Item 1 -->
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1.5">
+                                    <span class="text-slate-700 dark:text-slate-200"><i class="fa-brands fa-html5 text-orange-500 mr-1.5"></i>網頁前端開發 (HTML / CSS / JS)</span>
+                                    <span class="text-blue-600 dark:text-blue-400">85%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-2.5 rounded-full transition-all duration-1000" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill Progress Item 2 -->
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1.5">
+                                    <span class="text-slate-700 dark:text-slate-200"><i class="fa-solid fa-file-word text-blue-500 mr-1.5"></i>文字與內容精煉</span>
+                                    <span class="text-indigo-600 dark:text-indigo-400">90%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2.5 rounded-full transition-all duration-1000" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill Progress Item 3 -->
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1.5">
+                                    <span class="text-slate-700 dark:text-slate-200"><i class="fa-solid fa-diagram-project text-emerald-500 mr-1.5"></i>資訊管理與邏輯梳理</span>
+                                    <span class="text-emerald-600 dark:text-emerald-400">88%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-emerald-500 to-teal-500 h-2.5 rounded-full transition-all duration-1000" style="width: 88%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill Progress Item 4 -->
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-1.5">
+                                    <span class="text-slate-700 dark:text-slate-200"><i class="fa-solid fa-robot text-pink-500 mr-1.5"></i>AI 工具應用與 Prompt 技巧</span>
+                                    <span class="text-pink-600 dark:text-pink-400">92%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-pink-500 to-rose-500 h-2.5 rounded-full transition-all duration-1000" style="width: 92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Badges -->
+                    <div class="mt-8 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-xs rounded-lg font-medium">Tailwind CSS</span>
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-xs rounded-lg font-medium">JavaScript ES6+</span>
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-xs rounded-lg font-medium">Git / GitHub</span>
+                        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-xs rounded-lg font-medium">資料庫概論</span>
+                    </div>
+                </div>
+
+                <!-- Goals Section -->
+                <div class="glass-card p-6 sm:p-8 rounded-3xl card-hover border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-flag-checkered text-indigo-500"></i> 學習目標
+                            </h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-semibold">持續進化</span>
+                        </div>
+
+                        <!-- Core Goal Banner -->
+                        <div class="p-4 rounded-2xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-500/20 mb-6">
+                            <p class="text-xs uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold mb-1">核心學習宣言</p>
+                            <p class="text-lg font-bold text-slate-900 dark:text-white">
+                                「精通文字與程式；目標是越用越懂你」
+                            </p>
+                        </div>
+
+                        <!-- Milestone Checklist -->
+                        <div class="space-y-3">
+                            <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">大學學習里程碑</h4>
+                            
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-100/70 dark:bg-slate-800/50">
+                                <i class="fa-solid fa-circle-check text-emerald-500 text-lg mt-0.5"></i>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-800 dark:text-slate-100">鞏固資管程式基礎</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">精通前端 UI/UX 實作與數據邏輯架構</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-100/70 dark:bg-slate-800/50">
+                                <i class="fa-solid fa-circle-check text-emerald-500 text-lg mt-0.5"></i>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-800 dark:text-slate-100">提升文字表達與溝通效率</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">能精確將複雜問題轉換為清晰易懂的文件與程式</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-100/70 dark:bg-slate-800/50">
+                                <i class="fa-solid fa-spinner text-blue-500 animate-spin text-lg mt-0.5"></i>
+                                <div>
+                                    <p class="font-bold text-sm text-slate-800 dark:text-slate-100">建立高度客制化的 AI 協作經驗</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">透過持續學習與反覆磨合，達成最高默契</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex justify-between items-center">
+                        <span>進度狀況：持續學習中 🚀</span>
+                        <span class="font-bold text-indigo-500">Stay Hungry, Stay Foolish</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CONTACT SECTION -->
+        <section id="contact" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">聯繫方式</h2>
+                <div class="w-16 h-1 bg-emerald-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Left: Quick Contact Info Card -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl card-hover border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                        <h3 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">保持聯繫</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 leading-relaxed">
+                            不論是有合作機會、專題討論，或是想交流技術與學習心得，都非常歡迎隨時透過電子郵件與我聯繫！
+                        </p>
+
+                        <!-- Email Box -->
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 mb-4">
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">電子郵件 Email</div>
+                            <div class="font-mono text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 break-all select-all">
+                                nhh270499@gmail.com
+                            </div>
+                        </div>
+
+                        <!-- Email Action Buttons -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="copyEmail()" class="px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
+                                <i class="fa-regular fa-copy"></i> 複製 Email
+                            </button>
+                            <a href="mailto:nhh270499@gmail.com" class="px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm flex items-center justify-center gap-2 shadow-md transition-all active:scale-95 text-center">
+                                <i class="fa-solid fa-paper-plane"></i> 直接寄信
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Info Badge Card -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white">身份背景</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">資訊管理學系 在校學生</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Message Form Card -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl card-hover border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-envelope-open-text text-emerald-500"></i> 發送留言給阮友雄
+                        </h3>
+
+                        <form id="contactForm" class="space-y-4" onsubmit="handleFormSubmit(event)">
+                            <div>
+                                <label for="userName" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">您的姓名 / 稱呼</label>
+                                <input type="text" id="userName" required placeholder="例如：王小明" 
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 dark:text-slate-100 transition-all">
+                            </div>
+
+                            <div>
+                                <label for="userEmail" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">您的 Email</label>
+                                <input type="email" id="userEmail" required placeholder="name@example.com" 
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 dark:text-slate-100 transition-all">
+                            </div>
+
+                            <div>
+                                <label for="userMessage" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">訊息內容</label>
+                                <textarea id="userMessage" rows="4" required placeholder="請輸入您想告訴阮友雄的話..." 
+                                          class="w-full px-4 py-3 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 dark:text-slate-100 transition-all resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-98 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> 送出訊息
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="site-footer section-shell">
-      <span>© <span id="year"></span> Lin Yu-An</span>
-      <span>Built with curiosity &amp; code.</span>
-      <a href="#top">回到頂端 ↑</a>
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
+            <div class="flex items-center justify-center gap-2 text-lg font-bold">
+                <span class="animated-gradient-text">阮友雄</span> · 資訊管理學系
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+                &copy; <span id="currentYear"></span> Nguyen Huu Hung. All rights reserved. Designed for College Life.
+            </p>
+        </div>
     </footer>
-  </body>
+
+    <!-- Back to Top Floating Button -->
+    <button id="backToTopBtn" onclick="scrollToTop()" aria-label="回到頂部" 
+            class="fixed bottom-6 right-6 p-3.5 rounded-2xl bg-blue-600 text-white shadow-xl hover:bg-blue-700 transition-all transform translate-y-20 opacity-0 z-40 hover:scale-110 active:scale-95">
+        <i class="fa-solid fa-arrow-up text-lg"></i>
+    </button>
+
+    <!-- Toast Notification for Copying -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-2xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-semibold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none translate-y-10 z-50 flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+        <span id="toastMsg">Email 已成功複製到剪貼簿！</span>
+    </div>
+
+    <!-- Photo URL Updater Modal -->
+    <div id="photoModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-card bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl max-w-md w-full border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">更換個人相片</h3>
+                <button onclick="closePhotoModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">請輸入新的照片圖片網址 (Image URL)：</p>
+            <input type="url" id="photoUrlInput" placeholder="https://images.unsplash.com/..." 
+                   class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            
+            <div class="flex gap-2 pt-2">
+                <button onclick="closePhotoModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-semibold">取消</button>
+                <button onclick="updateProfilePhoto()" class="w-1/2 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-md">更新相片</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-card bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl max-w-md w-full text-center border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4">
+            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-500 rounded-full flex items-center justify-center text-3xl mx-auto">
+                <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">訊息已順利送出！</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm">
+                謝謝您的留言！阮友雄已收到您的訊息，會盡快回覆給您。
+            </p>
+            <button onclick="closeSuccessModal()" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all">
+                好的，太棒了！
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set Copyright Year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Theme Switcher Logic
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const htmlElement = document.documentElement;
+
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                htmlElement.classList.remove('dark');
+            } else {
+                htmlElement.classList.add('dark'); // Default dark
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Mobile Navigation Drawer Toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Back to Top Button Scroll Behavior
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
+                } else {
+                    backToTopBtn.classList.add('translate-y-20', 'opacity-0');
+                }
+            });
+        });
+
+        // Scroll to top smooth function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Copy Email to Clipboard function
+        function copyEmail() {
+            const emailText = 'nhh270499@gmail.com';
+            
+            // Clipboard fallback logic
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(emailText).then(() => {
+                    showToast('Email 已成功複製到剪貼簿！');
+                }).catch(() => {
+                    fallbackCopy(emailText);
+                });
+            } else {
+                fallbackCopy(emailText);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Email 已成功複製到剪貼簿！');
+            } catch (err) {
+                showToast('複製失敗，請手動複製 nhh270499@gmail.com');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Show Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            }, 3000);
+        }
+
+        // Photo Modal Functions
+        function openPhotoModal() {
+            const modal = document.getElementById('photoModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closePhotoModal() {
+            const modal = document.getElementById('photoModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function updateProfilePhoto() {
+            const urlInput = document.getElementById('photoUrlInput').value.trim();
+            if (urlInput) {
+                document.getElementById('profileImage').src = urlInput;
+                showToast('個人照片更新成功！');
+            }
+            closePhotoModal();
+        }
+
+        // Contact Form Submission Simulation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('contactForm').reset();
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+    </script>
+</body>
 </html>
